@@ -4,11 +4,9 @@ import LoginComponents  from "./Components/LoginComponents.js";
 function App() {
   return (
     <div className="App">
-          <head>
-    
-    </head>
-   <LoginComponents/>
-     
+      <head>
+      </head>
+      <LoginComponents />
     </div>
   );
 }
