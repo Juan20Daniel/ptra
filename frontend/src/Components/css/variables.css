@@ -6,6 +6,8 @@
     --strong-blue: rgba(44, 46, 80, 1);
     --green: rgba(0, 205, 107, 1);
     --gray: #F3F4F8;
+    --white: #fff;
+    --black: #000000;
 }
 * {
     margin: 0;
