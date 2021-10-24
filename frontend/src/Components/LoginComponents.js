@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Modal } from 'rsuite';
 import swal from 'sweetalert';
 import SalaComponents from "./SalaComponents";
+import ilustracion from '../assets/ilustracion.svg';
 const socket = io.connect("http://localhost:3000");
 
 export default function LoginComponents() {
@@ -64,73 +65,65 @@ export default function LoginComponents() {
     <div>
       {!showChat ? (
       <div>
-        <Modal  open={InLogin} onClose={handleCloselogin}>  
-          <div class="box-form">   
-            <div className="modal-container"></div>
-            <div class="left">
-              <div class="overlay"></div>
+        <Modal open={InLogin} onClose={handleCloselogin}>  
+          <div className="container-login">   
+            <div className="container__left">
+              <img  className="container__left--ilustracion" src={ilustracion} alt="Ilustración del login" />
             </div>
-            <div class="right "  >
-              <h5>Iniciar sesión</h5>
-              <form  onSubmit={onSubmitLogin} >
-                <div className="group col-md-12" >
-                  <label htmlFor="email" className="label ">Correo</label>
-                  <input  onChange={(event) => {setUsername(event.target.value);}} required="required" placeholder="Email@gmail.com" id="Email" name="Email" type="email" className="input"/>
-                </div>
-                <br/>        
-                <div className="group col-md-12">
-                  <label htmlFor="password" className="label ">Contraseña</label>
+            <div class="container__right"  >
+              <h5 className="container__right--title">Iniciar sesión</h5>
+              <form className="container__right--form" onSubmit={onSubmitLogin} >
+                <div className="Input-group">
+                  <label htmlFor="email" className="label">Correo</label>
+                  <input  onChange={(event) => {setUsername(event.target.value);}} required="required" placeholder="Ingresa tu correo" id="Email" name="Email" type="email" className="input"/>
+                </div>       
+                <div className="Input-group">
+                  <label htmlFor="password" className="label">Contraseña</label>
                   <input  onChange={(event) => {
                     setRoom(event.target.value);
                     }} required="required" placeholder="Ingresa tu contraseña" id="password" name="password" type="password" className="input"
                   />
                 </div>
-                <br></br><br/>
-                <button type="submit" class="button2" >Iniciar sesión</button>
-                <button onClick={handleOpenRegistro} class="button2" >Registro</button>
+                <div className="group-btns">
+                  <button type="submit" class="group-btns__btn btn-left">Iniciar sesión</button>
+                  <button onClick={handleOpenRegistro} class="group-btns__btn">Registro</button>
+                </div>
               </form>              
             </div>    
           </div>  
         </Modal> 
-        <Modal  open={InRegistro} onClose={handleCloseregistro}>  
-          <div class="box-form">     
-            <div className="modal-container">
-          </div>
-          <div class="left">
-            <div class="overlay"></div>
-          </div>
-          <div class="right ">
-            <h5>Registro</h5>
-              <form  onSubmit={onSubmit} >
-                <div className="group col-md-12" >
-                  <label htmlFor="Nombre" className="label ">Nombre</label>
+        <Modal  open={InRegistro} onClose={handleCloseregistro}>   
+          <div className="container-login">   
+            <div className="container__left">
+              <img  className="container__left--ilustracion" src={ilustracion} alt="Ilustración del login" />
+            </div>
+            <div class="container__right">
+              <h5 className="container__right--title register-title">Registro</h5>
+              <form className="container__right--form register-form" onSubmit={onSubmit} >
+                <div className="Input-group">
+                  <label htmlFor="Nombre" className="label">Nombre</label>
                   <input onChange={(event) => {setNombre(event.target.value);}} placeholder="Ingresa tu Nombre"  required="required" autofocus="autofocus" id="Nombre" name="Nombre" type="text" className="input"/>
                 </div>
-                <br/>
-                <div className="group col-md-12">
-                  <label htmlFor="password" className="label ">Correo</label>
+                <div className="Input-group">
+                  <label htmlFor="password" className="label">Correo</label>
                   <input  onChange={(event) => {setCorreo(event.target.value);}} required="required" placeholder="Email@gmail.com" id="Email" name="Email" type="email" className="input"/>
                 </div>
-                <br/>
-                <div className="group col-md-12" >
-                  <label htmlFor="Contraseña" className="label ">Contraseña</label>
+                <div className="Input-group">
+                  <label htmlFor="Contraseña" className="label">Contraseña</label>
                   <input onChange={(event) => {setContraseña(event.target.value);}} placeholder="Ingresa tu Contraseña"  required="required"  id="Contraseña" name="Contraseña" type="password" className="input"/>
                 </div>
-                <br/>
-                <div className="group col-md-12" >
-                  <label htmlFor="ConfiContraseña" className="label ">Confirmar contraseña</label>
+                <div className="Input-group">
+                  <label htmlFor="ConfiContraseña" className="label">Confirmar contraseña</label>
                   <input onChange={(event) => {setConfiContraseña(event.target.value);}} placeholder="Ingresa tu Contraseña"  required="required"  id="ConfiContraseña" name="ConfiContraseña" type="password" className="input"/>
                 </div>
-                <br/>
-                <div className="group col-md-12" >
-                  <label htmlFor="Teléfono" className="label ">Teléfono</label>
+                <div className="Input-group">
+                  <label htmlFor="Teléfono" className="label">Teléfono</label>
                   <input onChange={(event) => {setTeléfono(event.target.value);}} placeholder="Ingresa el numero del teléfono"  required="required"  id="Teléfono" name="Teléfono" type="number" className="input"/>
                 </div>
-                <br/><br></br><br/>
-                <button onClick={handleOpenLogin} class="button2" >Iniciar sesión</button>
-                <button type="submit"  class="button2" >
-                    Enviar
-                </button>
+                <div className="group-btns">
+                  <button onClick={handleOpenLogin} class="group-btns__btn btn-left">Iniciar sesión</button>
+                  <button type="submit"  class="group-btns__btn">Enviar</button>
+                </div>
               </form>      
             </div>
           </div>
