@@ -1,4 +1,3 @@
-import './App.css';
 import SalaComponents from "./Components/SalaComponents.js";
 import LoginComponents  from "./Components/LoginComponents.js";
 function App() {

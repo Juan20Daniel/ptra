@@ -7,10 +7,16 @@ import user from '../assets/user.png';
 import contact from '../assets/contact.png';
 import send from '../assets/send.svg';
 import down_menu from '../assets/down-menu.svg'
+import message from '../assets/message.svg';
+import DataContact from './DataContact';
+
 function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
     const [currentMessage, setCurrentMessage] = useState("");
+    const [ showData, setShowData ] = useState(false);
     const [messageList, setMessageList] = useState([]);
-  
+    const lookDataMenu = () => {
+      setShowData(!showData);
+    }
     const sendMessage = async () => {
       if (currentMessage !== "") {
         const messageData = {
@@ -36,12 +42,9 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
   return (
     <main className="main-container">
       <div className="main-container__user">
-        <ViewUser 
-          imgPerfil={user} 
-          name="Alejandro García"
-          phone="55 2026 0240"
-        >
+        <ViewUser imgPerfil={user} name="Alejandro García" phone="55 2026 0240">
           <div className="text-chat">
+            <img src={message} alt="Icono de mensage"/> 
             <p>Chat</p>
           </div>
         </ViewUser>
@@ -60,13 +63,6 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
               <div className="message__text-you">
                 <p className="message__text--send-you">
                 texto de mensajetexto de mensaje
-                texto de mensajetexto de mensaje
-                texto de mensajetexto de mensaje
-                eeeeeeeeeeeeeeeeeee
-                texto de mensajetexto de mensaje
-                texto de mensajetexto de mensaje
-                texto de mensajetexto de mensaje
-                eeeeeeeeeeeeeeeeeee
                 </p>
               </div>
             </div>
@@ -87,7 +83,45 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
                 </p>
               </div>
             </div>
-
+            <div className="message-another">
+              <div className="message__text-another">
+                <p className="message__text--send-another">
+                  texto de mensajetexto de mensaje
+                </p>
+                <p className="message__text--send-another">
+                  texto de mensajetexto de mensaje
+                </p>
+              </div>
+              <div className="message__img-user-another">
+                <img src={user} alt="Imagen de la persona que lo envío" />
+              </div>
+            </div>
+            <div className="message-another">
+              <div className="message__text-another">
+                <p className="message__text--send-another">
+                  texto de mensajetexto de mensaje
+                </p>
+                <p className="message__text--send-another">
+                  texto de mensajetexto de mensaje
+                </p>
+              </div>
+              <div className="message__img-user-another">
+                <img src={user} alt="Imagen de la persona que lo envío" />
+              </div>
+            </div>
+            <div className="message-another">
+              <div className="message__text-another">
+                <p className="message__text--send-another">
+                  texto de mensajetexto de mensaje
+                </p>
+                <p className="message__text--send-another">
+                  texto de mensajetexto de mensaje
+                </p>
+              </div>
+              <div className="message__img-user-another">
+                <img src={user} alt="Imagen de la persona que lo envío" />
+              </div>
+            </div>
             <div className="message-another">
               <div className="message__text-another">
                 <p className="message__text--send-another">
@@ -104,18 +138,22 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
           </ScrollToBottom>
         </div>
         <div className="chat-footer">
-          <input
-            type="text"
-            value={currentMessage}
-            placeholder="Escribe un mensaje…"
-            onChange={(event) => {
-              setCurrentMessage(event.target.value);
-            }}
-            onKeyPress={(event) => {
-              event.key === "Enter" && sendMessage();
-            }}
-          />
-          <button className="btn-send-message" onClick={sendMessage}><img className="icon-btn-send" src={send} alt="Icono de envíar" /></button>
+          <div className="chat-footer-input">
+            <input
+              type="text"
+              value={currentMessage}
+              placeholder="Escribe un mensaje…"
+              onChange={(event) => {
+                setCurrentMessage(event.target.value);
+              }}
+              onKeyPress={(event) => {
+                event.key === "Enter" && sendMessage();
+              }}
+            />
+          </div>
+          <div className="btn-send">
+            <button className="btn-send-message" onClick={sendMessage}><img className="icon-btn-send" src={send} alt="Icono de envíar" /></button>
+          </div>
         </div>
       </div>
       <div className="main-container__user">
@@ -124,8 +162,19 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
             <button className="btn-edit-data">Editar datos</button>
           </div>
           <div className="contact-data">
-            <p>Datos del contacto</p>
-            <img src={down_menu} alt="Icono de menú abajo o arriba" />
+            <div className="contact_data__btn" onClick={lookDataMenu}>
+              <p>Datos del contacto</p>
+              <img src={down_menu} className={`${showData && "rotate_img"}`} alt="Icono de menú abajo o arriba" />
+            </div>
+            <div className={`contact-data_data ${showData && "open-menu"}`}>
+              <DataContact title="Notas" text="Buen prospecto"/>
+              <DataContact title="Edad" text="38"/>
+              <DataContact title="Correo" text="lucia-test@gmail.com"/>
+              <DataContact title="Prioridad" text="Alta"/>
+              <DataContact title="Problema" text="Informes"/>
+              <DataContact title="Promoción" text="Cerrar ventana de llamada"/>
+              <DataContact title="Curp" text="HGCT2783HGHJ567FGHJ"/>
+            </div>
           </div>
         </ViewUser>
       </div>

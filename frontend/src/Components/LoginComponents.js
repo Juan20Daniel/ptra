@@ -1,12 +1,10 @@
-import React,{useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import "./css/Login.css"
 import io from "socket.io-client";
-import { useState } from "react";
-import axios from 'axios';
-import { Modal } from 'rsuite';
 import swal from 'sweetalert';
 import SalaComponents from "./SalaComponents";
 import ilustracion from '../assets/ilustracion.svg';
+import ilistration_respon from '../assets/ilistration_respon.svg';
 const socket = io.connect("http://localhost:3000");
 
 export default function LoginComponents() {
@@ -20,16 +18,16 @@ export default function LoginComponents() {
   const [Teléfono, setTeléfono] = useState("");
   const[InLogin,setLogin] = React.useState(true);
   const [InRegistro, setRegistro] = React.useState(false);
-  const handleOpenRegistro = () => (setRegistro(true),setLogin(false))
-  const handleCloseregistro = () => setRegistro(false);
-  const handleOpenLogin = () => (setRegistro(false),setLogin(true))
-  const handleCloselogin = () => setLogin(false);
+  const [ loginRegister, setLoginRegister ] = useState(true);
   const joinRoom = () => {
     if (CorreoLog !== "" && ContraseñaLog !== "") {
       socket.emit("Clave", ContraseñaLog);
       setShowChat(true);
     }
   };
+  const camLoginRegister = () => {
+    setLoginRegister(!loginRegister);
+  }
   const onSubmitLogin = async e => {
     await socket.emit('/api/Usuarios/Login',{Correo:CorreoLog,Contraseña:ContraseñaLog})
     setShowChat(true)  
@@ -65,38 +63,47 @@ export default function LoginComponents() {
     <div>
       {!showChat ? (
       <div>
-        <Modal open={InLogin} onClose={handleCloselogin}>  
+        {loginRegister && 
+          <div>  
+            <div className="container-login">   
+              <div className="container__left">
+                <picture>
+                  <source media="(min-width:815px)" srcset={ilustracion}/>
+                  <img  className="container__left--ilustracion" src={ilistration_respon} alt="Ilustración del login" />
+                </picture>
+              </div>
+              <div class="container__right"  >
+                <h5 className="container__right--title">Iniciar sesión</h5>
+                <form className="container__right--form" onSubmit={onSubmitLogin} >
+                  <div className="Input-group">
+                    <label htmlFor="email" className="label">Correo</label>
+                    <input  onChange={(event) => {setUsername(event.target.value);}} required="required" placeholder="Ingresa tu correo" id="Email" name="Email" type="email" className="input"/>
+                  </div>       
+                  <div className="Input-group">
+                    <label htmlFor="password" className="label">Contraseña</label>
+                    <input  onChange={(event) => {
+                      setRoom(event.target.value);
+                      }} required="required" placeholder="Ingresa tu contraseña" id="password" name="password" type="password" className="input"
+                    />
+                  </div>
+                  <div className="group-btns">
+                    <button type="submit" class="group-btns__btn btn-left">Iniciar sesión</button>
+                    <button onClick={camLoginRegister} type="button" class="group-btns__btn">Registro</button>
+                  </div>
+                </form>              
+              </div>    
+            </div>  
+          </div>
+        }
+        {!loginRegister &&
+        <div>   
           <div className="container-login">   
             <div className="container__left">
-              <img  className="container__left--ilustracion" src={ilustracion} alt="Ilustración del login" />
-            </div>
-            <div class="container__right"  >
-              <h5 className="container__right--title">Iniciar sesión</h5>
-              <form className="container__right--form" onSubmit={onSubmitLogin} >
-                <div className="Input-group">
-                  <label htmlFor="email" className="label">Correo</label>
-                  <input  onChange={(event) => {setUsername(event.target.value);}} required="required" placeholder="Ingresa tu correo" id="Email" name="Email" type="email" className="input"/>
-                </div>       
-                <div className="Input-group">
-                  <label htmlFor="password" className="label">Contraseña</label>
-                  <input  onChange={(event) => {
-                    setRoom(event.target.value);
-                    }} required="required" placeholder="Ingresa tu contraseña" id="password" name="password" type="password" className="input"
-                  />
-                </div>
-                <div className="group-btns">
-                  <button type="submit" class="group-btns__btn btn-left">Iniciar sesión</button>
-                  <button onClick={handleOpenRegistro} class="group-btns__btn">Registro</button>
-                </div>
-              </form>              
-            </div>    
-          </div>  
-        </Modal> 
-        <Modal  open={InRegistro} onClose={handleCloseregistro}>   
-          <div className="container-login">   
-            <div className="container__left">
-              <img  className="container__left--ilustracion" src={ilustracion} alt="Ilustración del login" />
-            </div>
+              <picture>
+                    <source media="(min-width:815px)" srcset={ilustracion}/>
+                    <img  className="container__left--ilustracion" src={ilistration_respon} alt="Ilustración del login" />
+                  </picture>
+              </div>
             <div class="container__right">
               <h5 className="container__right--title register-title">Registro</h5>
               <form className="container__right--form register-form" onSubmit={onSubmit} >
@@ -121,14 +128,15 @@ export default function LoginComponents() {
                   <input onChange={(event) => {setTeléfono(event.target.value);}} placeholder="Ingresa el numero del teléfono"  required="required"  id="Teléfono" name="Teléfono" type="number" className="input"/>
                 </div>
                 <div className="group-btns">
-                  <button onClick={handleOpenLogin} class="group-btns__btn btn-left">Iniciar sesión</button>
+                  <button onClick={camLoginRegister} type="button" class="group-btns__btn btn-left">Iniciar sesión</button>
                   <button type="submit"  class="group-btns__btn">Enviar</button>
                 </div>
               </form>      
             </div>
           </div>
-        </Modal> 
-      </div>  
+        </div> 
+        }
+      </div> 
       ) : (
         <SalaComponents socket={socket} CorreoLog={CorreoLog} ContraseñaLog={ContraseñaLog} />
       )}
