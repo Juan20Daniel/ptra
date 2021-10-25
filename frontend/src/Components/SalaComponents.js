@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
-//import swal from 'sweetalert';
 import "./css/sala.css"
 import ViewUser from './ViewUser';
 import user from '../assets/user.png';
@@ -9,13 +8,19 @@ import send from '../assets/send.svg';
 import down_menu from '../assets/down-menu.svg'
 import message from '../assets/message.svg';
 import DataContact from './DataContact';
+import icon_menu_serpon from '../assets/icon_menu-serpon.svg';
+import MenuDataContact from './MenuDataContact';
 
 function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
     const [currentMessage, setCurrentMessage] = useState("");
     const [ showData, setShowData ] = useState(false);
+    const [ showMenu, setShowMenu ] = useState(false);
     const [messageList, setMessageList] = useState([]);
     const lookDataMenu = () => {
       setShowData(!showData);
+    }
+    const btnShowMenu = () => {
+      setShowMenu(!showMenu);
     }
     const sendMessage = async () => {
       if (currentMessage !== "") {
@@ -53,6 +58,7 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
         <div className="chat-header">
           <img className="chat-header__img-contact" src={contact} alt="Imagen del contacto"/>
           <p>Lucía González</p>
+          <img className="btn-open-menu" onClick={btnShowMenu} src={icon_menu_serpon} alt="Icono de menu en responsive" />
         </div>
         <div className="chat-body">
           <ScrollToBottom className="message-container">
@@ -177,6 +183,15 @@ function SalaComponents({ socket, CorreoLog, ContraseñaLog }) {
             </div>
           </div>
         </ViewUser>
+      </div>
+      <div className={`contact-menu__data ${showMenu && "open-menu"}`}>
+        <MenuDataContact 
+          img={contact}
+          name="Lucía González"
+          phone="55271273617"
+          showMenu={showMenu}
+          btnShowMenu={btnShowMenu}
+        />
       </div>
     </main>
   )
