@@ -1,0 +1,71 @@
+.slider {
+	width: 95%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.slider ul {
+	padding: 0px;
+	display: flex;
+	width: 400%;
+
+	animation: cambio 20s infinite;
+	
+}
+
+.slider ul {
+animation: cambio2 20s infinite;	
+}
+
+.slider ul li {
+	list-style: none;
+	width: 100%;
+}
+
+img {
+	width: 100%;
+	height: 400px;
+}
+
+@keyframes cambio {
+	0% {margin-left: 0;}
+	20% {margin-left: 0;}
+
+	25% {margin-left: -100%;}
+	45% {margin-left: -100%;}
+
+	50% {margin-left: -200%;}
+	70% {margin-left: -200%;}
+
+	75% {margin-left: -300%;}
+	100% {margin-left: -300%;}
+
+	100% {margin-left: -300%;}
+	75% {margin-left: -300%;}
+
+	70% {margin-left: -200%;}
+	50% {margin-left: -200%;}
+
+	45% {margin-left: -100%;}
+	25% {margin-left: -100%;}
+
+	20% {margin-left: 0;}
+	0% {margin-left: 0;}
+	
+}
+
+
+@keyframes cambio2 {
+	100% {margin-left: -300%;}
+	75% {margin-left: -300%;}
+
+	70% {margin-left: -200%;}
+	50% {margin-left: -200%;}
+
+	45% {margin-left: -100%;}
+	25% {margin-left: -100%;}
+
+	20% {margin-left: 0;}
+	0% {margin-left: 0;}
+	
+}
